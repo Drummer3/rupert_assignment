@@ -38,6 +38,17 @@ function sortBy(column: string) {
       }
       return 0;
     });
+
+  if (column === "recipients")
+    table.value?.sort((a, b) => {
+      if (a[column].length < b[column].length) {
+        return -1;
+      }
+      if (a[column].length > b[column].length) {
+        return 1;
+      }
+      return 0;
+    });
 }
 
 watchEffect(() => {
@@ -51,7 +62,7 @@ watchEffect(() => {
       <tr>
         <td @click="sortBy('title')">Title</td>
         <td @click="sortBy('creator')">Creator</td>
-        <td>Recipients</td>
+        <td @click="sortBy('recipients')">Recipients</td>
         <td @click="sortBy('interval')">Interval</td>
         <td @click="sortBy('next_delivery')">Next Delivery</td>
         <td></td>
