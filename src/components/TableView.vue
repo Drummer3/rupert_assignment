@@ -80,6 +80,8 @@ watchEffect(() => {
         <td>{{ row.title }}</td>
         <td>
           <span class="bg-blue-300 text-xs text-gray-700 p-1 text-center">
+            <!-- this line assumes that creator has two words -->
+            <!-- this is very unsafe and might break the website if creator only has one word -->
             {{
               row.creator.name.split(" ")[0][0] +
               row.creator.name.split(" ")[1][0]
@@ -99,7 +101,10 @@ watchEffect(() => {
             {{ row.interval }}
           </div>
         </td>
-        <td>{{ new Date(row.next_delivery).toUTCString() }}</td>
+        <td>
+          <!-- I could be more creative on displaying time more cleanly -->
+          {{ new Date(row.next_delivery).toUTCString() }}
+        </td>
         <td>
           <button @click="$emit('onRowDelete', row)">
             <svg
