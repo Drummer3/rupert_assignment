@@ -154,7 +154,7 @@ table {
     }
 
     tr {
-      @apply hover:bg-violet-200;
+      @apply hover:bg-violet-200 duration-150;
 
       &:hover td > button {
         @apply opacity-100;
