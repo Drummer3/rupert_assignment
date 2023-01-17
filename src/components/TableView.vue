@@ -10,7 +10,7 @@ defineEmits<{
   (e: "onRowDelete", row: MockDataTypes): void;
 }>();
 
-// local tale variable for filtering
+// local tale variable for sorting
 const table = ref(props.data);
 
 /**
@@ -57,6 +57,7 @@ function sortBy(column: string) {
     table.value?.sort((a, b) => a[column].length - b[column].length);
 }
 
+// I update local 'table' variable each time props.data changes
 watchEffect(() => {
   table.value = props.data;
 });
