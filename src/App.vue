@@ -4,17 +4,16 @@ import TableView from "./components/TableView.vue";
 import LoaderAnimation from "./components/LoaderAnimation.vue";
 import type { MockDataTypes } from "@/types/api";
 
+// I use HeadlessUI's radio group for simplicity
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
 
-const plan = ref("time");
+const selectedTab = ref("time");
 let data = ref<MockDataTypes[]>();
 const search = ref("");
 
+// Function to handle row deletion
 function handleDelete(deletedRow: MockDataTypes) {
-  // IDEALLY I WOULD HAVE SOME KIND OF ID FOR EACH ROW AND I WOULD USE IT FOR THE DELETION
-  data.value = data.value?.filter(
-    (row) => JSON.stringify(row) != JSON.stringify(deletedRow)
-  );
+  data.value = data.value?.filter((row) => row != deletedRow);
 }
 
 onMounted(async () => {
@@ -35,7 +34,7 @@ onMounted(async () => {
         class="py-1 px-2 rounded-md focus:outline focus:outline-1 focus:outline-violet-900"
       />
     </div>
-    <RadioGroup v-model="plan" class="tabs">
+    <RadioGroup v-model="selectedTab" class="tabs">
       <RadioGroupOption v-slot="{ checked }" value="data">
         <p :class="'tab' + (checked ? ' active' : '')">
           <svg
@@ -104,7 +103,7 @@ onMounted(async () => {
       :data="
         data?.filter(
           (record) =>
-            record.trigger === plan &&
+            record.trigger === selectedTab &&
             (record.title
               .toLocaleLowerCase()
               .includes(search.toLocaleLowerCase()) ||
