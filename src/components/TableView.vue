@@ -54,15 +54,7 @@ function sortBy(column: string) {
 
   // i decided to filter recipients by it's length
   if (column === "recipients")
-    table.value?.sort((a, b) => {
-      if (a[column].length < b[column].length) {
-        return -1;
-      }
-      if (a[column].length > b[column].length) {
-        return 1;
-      }
-      return 0;
-    });
+    table.value?.sort((a, b) => a[column].length - b[column].length);
 }
 
 watchEffect(() => {
