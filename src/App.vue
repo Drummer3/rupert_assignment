@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import TableView from "./components/TableView.vue";
+import LoaderAnimation from "./components/LoaderAnimation.vue";
 import type { MockDataTypes } from "@/types/api";
 
 import { RadioGroup, RadioGroupOption } from "@headlessui/vue";
@@ -99,6 +100,7 @@ onMounted(async () => {
       </RadioGroupOption>
     </RadioGroup>
     <TableView
+      v-if="data"
       :data="
         data?.filter(
           (record) =>
@@ -118,6 +120,7 @@ onMounted(async () => {
       "
       @on-row-delete="handleDelete"
     />
+    <LoaderAnimation :message="'Downloading data'" v-else />
   </main>
 </template>
 
