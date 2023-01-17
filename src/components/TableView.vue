@@ -132,7 +132,7 @@ table {
     @apply bg-violet-50;
 
     td {
-      @apply cursor-pointer;
+      @apply font-bold cursor-pointer duration-150 hover:bg-violet-200;
     }
   }
 
