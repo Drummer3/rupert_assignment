@@ -10,9 +10,21 @@ defineEmits<{
   (e: "onRowDelete", row: MockDataTypes): void;
 }>();
 
-let table = ref(props.data);
+// local tale variable for filtering
+const table = ref(props.data);
 
+/**
+ * Function that handles sorting:
+ *    at the moment it only sorts by ascending order
+ *    but we could have state for asc/desc order and toggle on press
+ *
+ * Because of mixed types I had to handle column differently
+ *
+ * @param column pressed column
+ */
 function sortBy(column: string) {
+  // title, next_delivery and interval are string columns
+  // so we handle them the same way
   if (column === "title" || column === "next_delivery" || column === "interval")
     table.value?.sort((a, b) => {
       if (a[column].toLocaleLowerCase() < b[column].toLocaleLowerCase()) {
@@ -24,6 +36,7 @@ function sortBy(column: string) {
       return 0;
     });
 
+  // creator column is object so we need to take 'name' key and sort by that
   if (column === "creator")
     table.value?.sort((a, b) => {
       if (
@@ -39,6 +52,7 @@ function sortBy(column: string) {
       return 0;
     });
 
+  // i decided to filter recipients by it's length
   if (column === "recipients")
     table.value?.sort((a, b) => {
       if (a[column].length < b[column].length) {
